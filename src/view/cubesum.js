@@ -38,7 +38,7 @@ const initArray = function(response, convo){
 
 
 const askOperation = function(response, convo) {
-  convo.ask('What would you like to do? You can reply with UPDATE or QUERY or CLEAR', (response, convo) => {
+  convo.ask('What would you like to do? You can reply with UPDATE or QUERY or CLEAR or EXIT', (response, convo) => {
     switch(response.text){
     case 'update':
       update(response, convo)
@@ -48,6 +48,9 @@ const askOperation = function(response, convo) {
       break
     case 'clear':
       clear(response, convo)
+      break
+    case 'exit':
+      leave(response, convo)
       break
     default:
       convo.say('Am I dumb or what? Did not compute!')
@@ -100,5 +103,10 @@ const clear = function (response, convo) {
       .then((result) => {
         if (result) convo.say('Array cleared. http://cdn.vanillaforums.com/mfp-en.vanillaforums.com/editor/wr/vqjp2ge4n1wv.jpg')
       })
+  convo.next()
+}
+
+const leave = function (response, convo) {
+  convo.say('http://www.sharegif.com/wp-content/uploads/2014/04/marty-mcflydoc-brownback-to-the-futuregoodbye.gif')
   convo.next()
 }
