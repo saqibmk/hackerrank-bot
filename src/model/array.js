@@ -4,11 +4,11 @@
 
 export default function (size) {
   let outMostArray = []
-  for(var t=0; t<=size; t++) {
+  for(var t=0; t<size; t++) {
     let outerArray = []
-    for(var x=0; x<=size; x++) {
+    for(var x=0; x<size; x++) {
       let innerArray = []
-      for(var i=0; i<=size; i++) {
+      for(var i=0; i<size; i++) {
         innerArray[i] = 0
       }
       outerArray.push(innerArray)

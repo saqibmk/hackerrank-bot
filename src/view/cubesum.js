@@ -25,7 +25,6 @@ export const presentInit = function(response, convo) {
 
 const initArray = function(response, convo){
   convo.ask('What would you like the size of the array to be?', (response, convo) => {
-    console.log(response)
     user.createArray(response.user, response.text)
         .then((result) => {
           console.log(result)
