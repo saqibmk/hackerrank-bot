@@ -25,6 +25,17 @@ export const getArray = co.wrap(function * (userID) {
   }
 })
 
+export const saveArray = co.wrap(function * (userID, array) {
+  try {
+    yield Storage.init()
+    yield Storage.set(userID, array)
+    return true
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+})
+
 export const createArray = co.wrap(function * (userID, size) {
   try {
     yield Storage.init()

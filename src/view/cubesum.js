@@ -44,7 +44,7 @@ const askOperation = function(response, convo) {
       update(response, convo)
       break
     case 'query':
-      update(response, convo)
+      query(response, convo)
       break
     case 'clear':
       clear(response, convo)
@@ -58,15 +58,28 @@ const askOperation = function(response, convo) {
 }
 
 const update = function (response, convo) {
-  user.getArray(response.user)
-      .then((result) => {
-        console.log(result)
-      })
-  convo.next()
+  convo.say('Getting ready to update')
+  convo.ask('Enter the values using this format: x,y,z,value where value = value to be udapted', (response, convo)=>{
+    let responseArray = response.text.split(',')
+    user.getArray(response.user)
+        .then((result) => {
+          math.update(result,responseArray[0], responseArray[1], responseArray[2], responseArray[3])
+              .then((updateResult)=> {
+                user.saveArray(response.user,updateResult)
+                    .then((saveResult) => {
+                      if (saveResult) {
+                        convo.say('Array Updated')
+                        askOperation(response, convo)
+                      }
+                    })
+              })
+        })
+    convo.next()
+  })
 }
 
 const query = function (response, convo) {
-  console.log('query')
+  console.log(query)
 }
 
 const clear = function (response, convo) {
