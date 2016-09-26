@@ -19,6 +19,8 @@
     "nodemon": "^1.10.2"
   },
   "dependencies": {
-    "botkit": "^0.2.2"
+    "botkit": "^0.2.2",
+    "co": "^4.6.0",
+    "node-persist": "^2.0.2"
   }
 }
