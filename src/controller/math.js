@@ -20,7 +20,19 @@ export const update = co.wrap(function (array, x, y, z, value) {
 
 })
 
+export const query = co.wrap(function (array, startAt, endAt) {
+  let startArray = startAt.split(',')
+  let endArray = endAt.split(',')
+  let x0 = startArray[0], y0 = startArray[1], z0 = startArray[2]
+  let x = endArray[0], y = endArray[1], z = endArray[2]
 
+  let firstValue = sum(array,x,y,z)- sum(array,x0-1,y,z)
+                    - sum(array,x,y0-1,z) + sum(array,x0-1,y0-1,z)
+  let secondValue = sum(array,x,y,z0-1) - sum(array,x0-1,y,z0-1)
+                    - sum(array,x,y0-1,z0-1) + sum(array,x0-1,y0-1,z0-1)
+
+  return (firstValue - secondValue)
+})
 
 const sum = function (array, x, y, z) {
   let temp_y, temp_x, sum = 0

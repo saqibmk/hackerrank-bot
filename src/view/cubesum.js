@@ -79,7 +79,20 @@ const update = function (response, convo) {
 }
 
 const query = function (response, convo) {
-  console.log(query)
+  convo.say('Getting ready to query')
+  convo.ask('Enter the start and end values: x,y,z.xN,yN,zN where right of the dot is the starting values, and left of the dot contains the ending values', (response, convo) => {
+    let responseArray = response.text.split('.')
+    user.getArray(response.user)
+        .then((result)=> {
+          math.query(result, responseArray[0], responseArray[1])
+              .then((queryResult) => {
+                let returnString = 'I computed: ' + queryResult
+                convo.say(returnString)
+                askOperation(response, convo)
+              })
+        })
+    convo.next()
+  })
 }
 
 const clear = function (response, convo) {
@@ -89,25 +102,3 @@ const clear = function (response, convo) {
       })
   convo.next()
 }
-
-
-// Example conversation
-/*
-
- Size of array
-UPDATE OR QUERY
-
-if UPDATE
-Enter postion seperated by comma of x,y,z
-Enter value
-Respond Success
-
-if QUERY
-Enter start position
-Enter end position
-Calculate and Respond
-
-
-
-
-*/
