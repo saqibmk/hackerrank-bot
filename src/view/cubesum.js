@@ -67,13 +67,17 @@ const update = function (response, convo) {
         .then((result) => {
           math.update(result,responseArray[0], responseArray[1], responseArray[2], responseArray[3])
               .then((updateResult)=> {
-                user.saveArray(response.user,updateResult)
-                    .then((saveResult) => {
-                      if (saveResult) {
-                        convo.say('Array Updated')
-                        askOperation(response, convo)
-                      }
-                    })
+                if(!updateResult){
+                  error(response, convo)
+                } else {
+                  user.saveArray(response.user,updateResult)
+                      .then((saveResult) => {
+                        if (saveResult) {
+                          convo.say('Array Updated')
+                          askOperation(response, convo)
+                        }
+                      })
+                }
               })
         })
     convo.next()
@@ -88,9 +92,14 @@ const query = function (response, convo) {
         .then((result)=> {
           math.query(result, responseArray[0], responseArray[1])
               .then((queryResult) => {
-                let returnString = 'I computed: ' + queryResult
-                convo.say(returnString)
-                askOperation(response, convo)
+                if(!queryResult) {
+                  error(response, convo)
+                }
+                else {
+                  let returnString = 'I computed: ' + queryResult
+                  convo.say(returnString)
+                  askOperation(response, convo)
+                }
               })
         })
     convo.next()
@@ -107,5 +116,10 @@ const clear = function (response, convo) {
 
 const leave = function (response, convo) {
   convo.say('http://www.sharegif.com/wp-content/uploads/2014/04/marty-mcflydoc-brownback-to-the-futuregoodbye.gif')
+  convo.next()
+}
+
+const error = function (response, convo) {
+  convo.say('Something went wrong! Please try again. Take it from the top!')
   convo.next()
 }
