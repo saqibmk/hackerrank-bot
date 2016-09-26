@@ -2,12 +2,23 @@ import co from 'co'
 import Storage from 'node-persist'
 import * as math from './math'
 
-export const getArray = co.wrap(function * (userID) {
+export const checkArray = co.wrap(function * (userID) {
   try {
     yield Storage.init()
     let userArray = yield Storage.getItem(userID)
     if(userArray === undefined) throw new Error('Does not exist')
     return true
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+})
+
+export const getArray = co.wrap(function * (userID) {
+  try {
+    yield Storage.init()
+    let array = yield Storage.getItem(userID)
+    return array
   } catch (e) {
     console.log(e)
     return false

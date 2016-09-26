@@ -10,7 +10,7 @@ export const presentInit = function(response, convo) {
   //   }
   // })
   convo.ask('Starting Cube Summation Script. Write OK to start!', (response, convo) => {
-    user.getArray(response.user).then((result)=> {
+    user.checkArray(response.user).then((result)=> {
       if (!result) {
         convo.say('Looks like there is no arrays to work with. Let me create one for you!')
         initArray(response, convo)
@@ -58,7 +58,11 @@ const askOperation = function(response, convo) {
 }
 
 const update = function (response, convo) {
-  console.log('update')
+  user.getArray(response.user)
+      .then((result) => {
+        console.log(result)
+      })
+  convo.next()
 }
 
 const query = function (response, convo) {
