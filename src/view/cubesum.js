@@ -66,7 +66,11 @@ const query = function (response, convo) {
 }
 
 const clear = function (response, convo) {
-  console.log('clear')
+  user.clearArray(response.user)
+      .then((result) => {
+        if (result) convo.say('Array cleared. http://cdn.vanillaforums.com/mfp-en.vanillaforums.com/editor/wr/vqjp2ge4n1wv.jpg')
+      })
+  convo.next()
 }
 
 

@@ -27,3 +27,14 @@ export const createArray = co.wrap(function * (userID, size) {
     return false
   }
 })
+
+export const clearArray = co.wrap(function * (userID) {
+  try {
+    yield Storage.init()
+    yield Storage.removeItem(userID)
+    return true
+  } catch (e) {
+    console.log(e)
+    return false
+  }
+})
