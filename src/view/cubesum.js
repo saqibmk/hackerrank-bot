@@ -38,12 +38,36 @@ const initArray = function(response, convo){
 
 
 const askOperation = function(response, convo) {
-  convo.say('What would you like to do?')
-  convo.next()
+  convo.ask('What would you like to do? You can reply with UPDATE or QUERY or CLEAR', (response, convo) => {
+    switch(response.text){
+    case 'update':
+      update(response, convo)
+      break
+    case 'query':
+      update(response, convo)
+      break
+    case 'clear':
+      clear(response, convo)
+      break
+    default:
+      convo.say('Am I dumb or what? Did not compute!')
+      convo.repeat()
+    }
+    convo.next()
+  })
 }
 
+const update = function (response, convo) {
+  console.log('update')
+}
 
+const query = function (response, convo) {
+  console.log('query')
+}
 
+const clear = function (response, convo) {
+  console.log('clear')
+}
 
 
 // Example conversation
